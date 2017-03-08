@@ -5,12 +5,18 @@
 int main(int argc,char **args){
   int i,j,n_tau,n_theta,n_e,n_E,n_x,n_y,n_xy,e,E,v;
   double L_ijv;
-  Mat A;
+  doulbe omega[4]={-2,2,-2,2};
+  double xbox[4]={omega[0],omega[0],omega[1],omega[1],omega[0]};
+  double ybox[4]={omega[2],omega[3],omega[3],omega[2],omega[2]};
 
-  n_tau = 100;
-  n_theta = 1000;
+  Mat A, x, MU_e;
+
+  n_x=100;
+  n_y=100;
+  n_tau = floor(sqrt(n_x^2+n_y^2));
+  n_theta = 73;
   n_xy = n_x * n_y;
-  n_E = 100;
+  n_E = 2000;
   n_e = 3;
 
   n_total_1 = n_tau*n_theta*n_E;
@@ -46,21 +52,21 @@ int main(int argc,char **args){
       detector[0] = sin(theta[j])*(primary_detector[0]); //Something like this
       detector[1] = sin(theta[j])*(primary_detector[1]);
 
-      for(v=0;v<n_xy;v++){
-        L_ijv = calculate_L_ijv(source,detector,pixel_x,pixel_v);
-        I_ijv = 0;
+      [sub_v,Lvec] = calculate_L_ijv(source,detector,xbox,ybox,theta[j]);
+      int n_subv = sizeof(sub_v);
+      I_ij = 0;
+      for(v=0;v<n_subv;v++){
         for (e=0;e<n_e;e++){
-          I_ijv += calculate_I_ijv(L_ijv_sum,sample[v,e]);
-
-          O_ijve = calculate_O();
+      I_ij += x[sub_v[v],e]*Lvec[v]*MU_e[e,1];
+          // O_ijve = calculate_O(); not self-absorption for now; 
 
           for (E=0;E<n_E;E++){
             M_eE = M[e,E];
 
-            A_ijveE    = L_ijv*I_ijv*O_ijve*M_eE;
+            A_ijveE    = Lvec[v]*I_ij*M_eE;
 
-            i_p        = ...;
-            j_p        = ...;
+            i_p        = [i-1]*n_theta+j+(E-1)*(n_theta*n_tau);
+            j_p        = (sub_v[v]-1)*n_e+e;
             //A[i_p,j_p] = A_ijveE;
             if (A_ijveE!=0){
               ierr = MatSetValue(A,i_p,j_p,A_ijveE,SET_VALUES);
@@ -75,7 +81,7 @@ int main(int argc,char **args){
   TAO_Solve(A,x,b);
 }
 
-double calculate_L_ijv(double* source,double* detector,double* pixel_x,double* pixel_y){
+double calculate_L_ijv(double* source,double* detector,double* xbox,double* ybox, double* theta){
 
 
   return L_ijv;
