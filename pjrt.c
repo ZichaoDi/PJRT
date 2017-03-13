@@ -118,8 +118,3 @@ double calculate_L_ijv(double* source,double* detector,double* xbox,double* ybox
   return L_ijv;
 }
 
-double calculate_I_ijv(double L_ijv_sum,double this_sample){
-  double I_ijv;
-
-  return I_ijv;
-}
