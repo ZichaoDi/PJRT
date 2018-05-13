@@ -16,13 +16,13 @@ $(ODIR)/%.o: $(SRCDIR)/%.c $(DEPS)
 	@mkdir -p $(@D)
 	${PETSC_COMPILE} -c -o $@ $< $(CFLAGS) ${PETSC_KSP_LIB} ${PETSC_CC_INCLUDES}
 
-all: pjrt
+all: prt
 
-pjrt: $(ODIR)/pjrt.o $(OBJ)
+pjrt: $(ODIR)/prt.o $(OBJ)
 	-${CLINKER} -o $@ $^ $(CFLAGS) ${PETSC_KSP_LIB}
 
 .PHONY: clean
 
 clean:
 	rm -f $(OBJ)
-	rm -f pjrt
+	rm -f pjt
