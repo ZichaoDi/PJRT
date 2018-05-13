@@ -78,7 +78,7 @@ N = size(poly, 1);
 edges = [poly(1:N, :) poly([2:N 1], :)];
 
 % compute intersections with supporting lines of polygon edges
-supportLines = edgeToLine(edges);
+supportLine = [edges(:, 1:2) edges(:, 3:4)-edges(:, 1:2)];
 intersects = intersectLines(line, supportLines, tol);
 
 % find edges that are not parallel to the input line
