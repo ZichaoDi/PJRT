@@ -12,13 +12,13 @@ DEPS  = $(patsubst %,$(SRCDIR)/%,$(_DEPS))
 _OBJ  =
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
-$(ODIR)/%.o: $(SRCDIR)/%.c $(DEPS)
+$(ODIR)/%.o: $(SRCDIR)/%.cxx $(DEPS)
 	@mkdir -p $(@D)
-	${PETSC_COMPILE} -c -o $@ $< $(CFLAGS) ${PETSC_KSP_LIB} ${PETSC_CC_INCLUDES}
+	${PETSC_CXXCOMPILE} -c -o $@ $< $(CFLAGS) ${PETSC_KSP_LIB} ${PETSC_CC_INCLUDES}
 
-all: prt
+all: pirt
 
-pjrt: $(ODIR)/prt.o $(OBJ)
+pirt: $(ODIR)/pirt.o $(OBJ)
 	-${CLINKER} -o $@ $^ $(CFLAGS) ${PETSC_KSP_LIB}
 
 .PHONY: clean
