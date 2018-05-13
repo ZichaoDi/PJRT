@@ -25,4 +25,4 @@ pirt: $(ODIR)/pirt.o $(OBJ)
 
 clean:
 	rm -f $(OBJ)
-	rm -f pjt
+	rm -f pirt
