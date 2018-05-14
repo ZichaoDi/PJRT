@@ -2,6 +2,7 @@
 #include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
 #include <boost/geometry/geometries/linestring.hpp>
+#include "petsc.h"
 
 namespace bg = boost::geometry;
 typedef bg::model::point<double, 2, bg::cs::cartesian> point_t;
@@ -9,8 +10,16 @@ typedef bg::model::polygon<point_t> polygon_t;
 typedef bg::model::segment<point_t> segment_t;
 typedef bg::model::linestring<point_t> linestring_t;
 
-std::vector<double> linspace(double a, double b, size_t N);
+class detector_geometry;
 
+std::vector<double> linspace(double a, double b, size_t N);
+void setMatrixElements(int tau_idx, int theta_idx, detector_geometry det,Mat A_mat);
+void intersectionSet(linestring_t line, detector_geometry det, double theta,
+                     std::vector<int>& index,
+                     std::vector<double>& Lvec);
+
+
+// Detector / sample geometry class
 class detector_geometry{
 
 public:
