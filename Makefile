@@ -1,25 +1,26 @@
-CFLAGS	         =
-
+CFLAGS	         = -g -w2
+LIBS=-L/home/b216449/soft/boost_1_67_0
 ODIR=obj
-SRCDIR=.
+SRCDIR=src
 
 include ${PETSC_DIR}/lib/petsc/conf/variables
 #include ${PETSC_DIR}/lib/petsc/conf/rules
 
-_DEPS =
+_DEPS = geom.hpp
 DEPS  = $(patsubst %,$(SRCDIR)/%,$(_DEPS))
 
-_OBJ  =
+_OBJ  = pirt.o geom.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: $(SRCDIR)/%.cxx $(DEPS)
 	@mkdir -p $(@D)
-	${PETSC_CXXCOMPILE} -c -o $@ $< $(CFLAGS) ${PETSC_KSP_LIB} ${PETSC_CC_INCLUDES}
+	${PETSC_CXXCOMPILE} -c -o $@ $< $(CFLAGS) ${PETSC_KSP_LIB} ${PETSC_CC_INCLUDES} ${LIBS}
 
 all: pirt
 
-pirt: $(ODIR)/pirt.o $(OBJ)
-	-${CLINKER} -o $@ $^ $(CFLAGS) ${PETSC_KSP_LIB}
+pirt: $(OBJ)
+	@echo $(OBJ)
+	-${CLINKER} -o $@ $^ $(CFLAGS) ${PETSC_KSP_LIB} ${LIBCS}
 
 .PHONY: clean
 
