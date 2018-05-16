@@ -22,7 +22,6 @@ else
         Q=[[x', (Ay(2)-Ay(1))/(Ax(2)-Ax(1)).*x'+(Ay(1)*Ax(2)-Ay(2)*Ax(1))/(Ax(2)-Ax(1))];...
             [(y'-(Ay(1)*Ax(2)-Ay(2)*Ax(1))/(Ax(2)-Ax(1)))./((Ay(2)-Ay(1))/(Ax(2)-Ax(1))),y']];
     end
-    
     indx=find(Q(:,1)-xbox(1)<-1e-6*Tol |Q(:,1)-xbox(3)>1e-6*Tol); 
     indy=find(Q(:,2)-ybox(1)<-1e-6*Tol |Q(:,2)-ybox(2)>1e-6*Tol);
     Q=setdiff(Q,Q([indx;indy],:),'rows');
@@ -33,9 +32,8 @@ else
     index=floor([(QC(:,1)-omega(1))/dz(1)+1, (QC(:,2)-omega(3))/dz(2)+1]);
     indInside=find(index(:,1)>0 & index(:,1)<=m(2)& index(:,2)<=m(1) & index(:,2)>0);
     index=index(indInside,:);
-    [~,subInd]=unique(index,'rows');
-    index=index(sort(subInd),:);
+    % [index,subInd]=unique(index,'rows');
     Lvec=Lvec(indInside);
-    Lvec=Lvec(sort(subInd));
+    % Lvec=Lvec(subInd);
     linearInd=sub2ind(m,index(:,2),index(:,1));
 end

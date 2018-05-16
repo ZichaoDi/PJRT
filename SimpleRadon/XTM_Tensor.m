@@ -12,18 +12,18 @@ Tau= omega(2)-omega(1);
 nTau=ceil(sqrt(2*prod(m)))-1;%m(1)-1;% % number of discrete beam%nTau;%
 tol1=1/2*N(1);
 %=============initiate transmission detector location
-detS0=[Tau/2*tan(alpha)+tol1*dz(1), Tau/2+tol1*dz(1)]; 
-detE0=[Tau/2*tan(alpha)+tol1*dz(1),-Tau/2-tol1*dz(1)];
-dTau=abs(-Tau-2*tol1*dz(1))/(nTau+1);%%% width of each discrete beam
+detS0=[Tau/2*tan(alpha)+tol1*dz(1),-Tau/2-tol1*dz(1)]; 
+detE0=[Tau/2*tan(alpha)+tol1*dz(1),Tau/2+tol1*dz(1)];
+% dTau=abs(-Tau-2*tol1*dz(1))/(nTau+1);%%% width of each discrete beam
 knot=linspace(detS0(2),detE0(2),nTau+1)';
 DetKnot0=[repmat(detS0(1),size(knot)),knot];%% transmission detectorlet knot points
-SourceS0=[-Tau/2*tan(alpha)-tol1*dz(1), Tau/2+tol1*dz(1)];%initiate beam source
-SourceE0=[-Tau/2*tan(alpha)-tol1*dz(1),-Tau/2-tol1*dz(1)];
+SourceS0=[-Tau/2*tan(alpha)-tol1*dz(1),-Tau/2-tol1*dz(1)];%initiate beam source
+SourceE0=[-Tau/2*tan(alpha)-tol1*dz(1),Tau/2+tol1*dz(1)];
 
 knot=linspace(SourceS0(2),SourceE0(2),nTau+1)';
 SourceKnot0=[repmat(SourceS0(1),size(knot)),knot];%% source knot points
-DetKnot0=DetKnot0(end:-1:1,:);
-SourceKnot0=SourceKnot0(end:-1:1,:);
+% DetKnot0=DetKnot0(end:-1:1,:);
+% SourceKnot0=SourceKnot0(end:-1:1,:);
 %%%=========== Assign Projection Angles;
 thetan=linspace(1,360,numThetan);% must be positive.
 %%%+++++++++++++++++++++++++++++++++++++++++++++++++++++
