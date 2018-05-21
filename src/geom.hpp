@@ -1,3 +1,5 @@
+#ifndef GEOM_H
+#define GEOM_H
 #include <boost/geometry.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/geometries/polygon.hpp>
@@ -27,6 +29,8 @@ public:
   std::vector<double> thetan,x,y; //Maybe make this point_t
   std::vector<point_t> DetKnot0,SourceKnot0;
   polygon_t rectangle;
+  PetscBool synthetic;
+  char solFile[255];
   int numThetan,nTau;
   detector_geometry(){
     omega[0] = -2;
@@ -39,7 +43,9 @@ public:
     nTau = 30;
   }
 
-  detector_geometry(double omega_in[4], double tol_in,
-                    int numThetan_in, int m_in[2], int nTau_in);
+  detector_geometry(PetscReal omega_in[4], PetscReal tol_in,
+                    PetscInt numThetan_in, PetscInt m_in[2], PetscInt nTau_in,
+                    char solFile_in[255]);
 };
 
+#endif

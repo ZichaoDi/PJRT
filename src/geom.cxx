@@ -15,12 +15,13 @@ bool point_comparison(const point_t& p, const point_t& q){
   return p.get<0>()<q.get<0>();
 }
 
-detector_geometry::detector_geometry(double omega_in[4], double tol_in,
-                                     int numThetan_in, int m_in[2], int nTau_in){
+detector_geometry::detector_geometry(PetscReal omega_in[4], PetscReal tol_in,
+                                     PetscInt numThetan_in, PetscInt m_in[2], PetscInt nTau_in,
+                                     char solFile_in[255]){
   double alpha,Tau,tol1;
   point_t detS0,detE0,SourceS0,SourceE0;
   std::vector<double> knot;
-
+  strcpy(solFile,solFile_in);
   // Copy in the passed values
   for (int i=0;i<4;i++){
     omega[i] = omega_in[i]*tol_in;

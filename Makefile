@@ -1,4 +1,4 @@
-CFLAGS	         = -g -w2
+CFLAGS	         = -w2
 LIBS=-L/home/b216449/soft/boost_1_67_0
 ODIR=obj
 SRCDIR=src
@@ -6,10 +6,10 @@ SRCDIR=src
 include ${PETSC_DIR}/lib/petsc/conf/variables
 #include ${PETSC_DIR}/lib/petsc/conf/rules
 
-_DEPS = geom.hpp
+_DEPS = geom.hpp init.hpp solver.hpp
 DEPS  = $(patsubst %,$(SRCDIR)/%,$(_DEPS))
 
-_OBJ  = pirt.o geom.o
+_OBJ  = pirt.o geom.o init.o solver.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: $(SRCDIR)/%.cxx $(DEPS)
